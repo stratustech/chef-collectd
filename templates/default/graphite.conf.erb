@@ -1,0 +1,13 @@
+LoadPlugin write_graphite
+
+<Plugin write_graphite>
+ <Carbon>
+   Host "<%= node[:collectd][:graphite][:host] %>"
+   Port  "<%= node[:collectd][:graphite][:port] %>"
+   Prefix "<%= node[:collectd][:graphite][:prefix] %>"
+   Postfix "<%= node[:collectd][:graphite][:postfix] %>"
+   StoreRates false
+   AlwaysAppendDS false
+   EscapeCharacter "<%= node[:collectd][:graphite][:escape_character] %>"
+ </Carbon>
+</Plugin>
