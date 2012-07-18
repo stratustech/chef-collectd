@@ -22,6 +22,14 @@ default[:collectd][:plugin_dir] = "/usr/lib/collectd"
 default[:collectd][:types_db] = ["/usr/share/collectd/types.db"]
 default[:collectd][:interval] = 10
 default[:collectd][:read_threads] = 5
-
+default[:collectd][:install_method] = "package"
 default[:collectd][:collectd_web][:path] = "/srv/collectd_web"
 default[:collectd][:collectd_web][:hostname] = "collectd"
+default[:collectd][:source_url] = 'http://collectd.org/files/collectd-5.1.0.tar.bz2'
+default[:collectd][:checksum] = '521d4be7df5bc1124b7b9ea88227e95839a5f7c1b704a5bde0f60f058ec6eecb'
+
+default[:collectd][:graphite][:host] = "localhost"
+default[:collectd][:graphite][:port] = "2003"
+default[:collectd][:graphite][:prefix] = "collectd."
+default[:collectd][:graphite][:postfix] = ""
+default[:collectd][:graphite][:escape_character] = "_"

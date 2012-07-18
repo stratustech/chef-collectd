@@ -1,0 +1,9 @@
+description "collectd"
+
+start on startup
+stop on shutdown
+expect fork
+
+script
+    exec collectd -C /etc/collectd/collectd.conf 2>&1 >> /var/log/collectd/collectd.log
+end script
