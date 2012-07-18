@@ -23,6 +23,12 @@ node[:collectd][:base_dir] = "/opt/collectd/var/lib/collectd"
 node[:collectd][:plugin_dir] = "/opt/collectd/lib/collectd"
 node[:collectd][:types_db] = ["/opt/collectd/share/collectd/types.db"]
 
+if platform_family? "debian"
+  package "perl-modules"
+elsif platform_family? "rhel" 
+  package "perl-ExtUtils-MakeMaker"
+end
+
 ark "collectd" do
   url node[:collectd][:source_url]
   checksum node[:collectd][:checksum]
