@@ -17,14 +17,21 @@
 # limitations under the License.
 #
 
-package "collectd" do
-  package_name "collectd-core"
-end
-
 service "collectd" do
   supports :restart => true, :status => true
+   if node[:collectd][:install_method] == "source"
+     provider Chef::Provider::Service::Upstart
+   end
 end
 
+if node[:collectd][:install_method] == "package"
+package "collectd" do
+  package_name "collectd-core"
+  end
+else
+  include_recipe "collectd::source"
+end
+  
 directory "/etc/collectd" do
   owner "root"
   group "root"
@@ -83,6 +90,7 @@ ruby_block "delete_old_plugins" do
     end
   end
 end
+
 
 service "collectd" do
   action [:enable, :start]
