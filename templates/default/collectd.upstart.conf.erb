@@ -1,9 +1,11 @@
 description "collectd"
 
-start on startup
-stop on shutdown
+start on runlevel [345]
+stop on runlevel [s016]
+respawn
 expect fork
+respawn limit 10 5
 
 script
-    exec collectd -C /etc/collectd/collectd.conf 2>&1 >> /var/log/collectd/collectd.log
+    exec collectd -C /etc/collectd/collectd.conf 
 end script

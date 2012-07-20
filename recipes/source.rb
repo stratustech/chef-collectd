@@ -41,8 +41,6 @@ ark "collectd" do
   action [ :configure, :install_with_make ]
 end
 
-directory "/var/log/collectd"
-
 template "/etc/init/collectd.conf" do
   source "collectd.upstart.conf.erb"
   owner "root"
