@@ -19,9 +19,11 @@
 
 service "collectd" do
   supports :restart => true, :status => true
-   if node[:collectd][:install_method] == "source"
-     provider Chef::Provider::Service::Upstart
-   end
+  if node[:collectd][:install_method] == "source"
+    unless platform_family?("rhel") and node['platform_version'].to_i < 6
+      provider Chef::Provider::Service::Upstart
+    end
+  end
 end
 
 if node[:collectd][:install_method] == "package"

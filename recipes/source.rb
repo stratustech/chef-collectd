@@ -25,7 +25,7 @@ node[:collectd][:types_db] = ["/opt/collectd/share/collectd/types.db"]
 
 if platform_family? "debian"
   package "perl-modules"
-elsif platform_family? "rhel" 
+elsif platform_family? "rhel" and node['platform_version'].to_i > 5
   package "perl-ExtUtils-MakeMaker"
 end
 
@@ -41,10 +41,21 @@ ark "collectd" do
   action [ :configure, :install_with_make ]
 end
 
-template "/etc/init/collectd.conf" do
-  source "collectd.upstart.conf.erb"
-  owner "root"
-  group "root"
-  mode "755"
-  notifies :restart, resources(:service => "collectd")
+
+if node['platform_version'].to_i < 6 and platform_family? "rhel"
+  template "/etc/init.d/collectd" do
+    source "collectd.init.el.erb"
+    owner "root"
+    group "root"
+    mode "755"
+    notifies :restart, resources(:service => "collectd")
+  end
+else
+  template "/etc/init/collectd.conf" do
+    source "collectd.upstart.conf.erb"
+    owner "root"
+    group "root"
+    mode "755"
+    notifies :restart, resources(:service => "collectd")
+  end
 end
