@@ -6,7 +6,7 @@ LoadPlugin write_graphite
    Port  "<%= node[:collectd][:graphite][:port] %>"
    Prefix "<%= node[:collectd][:graphite][:prefix] %>"
    Postfix "<%= node[:collectd][:graphite][:postfix] %>"
-   StoreRates false
+   StoreRates <%= node[:collectd][:graphite][:store_rates] %>
    AlwaysAppendDS false
    EscapeCharacter "<%= node[:collectd][:graphite][:escape_character] %>"
  </Carbon>

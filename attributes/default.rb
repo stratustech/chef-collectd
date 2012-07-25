@@ -33,3 +33,4 @@ default[:collectd][:graphite][:port] = "2003"
 default[:collectd][:graphite][:prefix] = "collectd."
 default[:collectd][:graphite][:postfix] = ""
 default[:collectd][:graphite][:escape_character] = "_"
+default[:collectd][:graphite][:store_rates] = false
