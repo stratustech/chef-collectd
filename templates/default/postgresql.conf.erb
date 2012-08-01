@@ -1,0 +1,40 @@
+LoadPlugin "postgresql"
+TypesDB "/etc/collectd/plugins/postgresql-types.db"
+<Plugin postgresql>
+
+<Query database_connections>
+  Statement "select count(datname) as count, datname from pg_stat_activity group by datname"
+  <Result>
+  Type pg_datname_connections
+  InstancesFrom "datname"
+  ValuesFrom "count"
+  </Result>
+</Query>
+
+<Query username_connections>
+  Statement "select count(usename) as count, usename from pg_stat_activity group by usename"
+  <Result>
+  Type pg_username_connections
+  InstancesFrom "usename"
+  ValuesFrom "count"
+  </Result>
+</Query>
+
+
+<Database postgres>
+   Host "<%= node['collectd']['postgresql']['host'] %>"
+   Port "<%= node['collectd']['postgresql']['port'] %>"
+   User "<%= node['collectd']['postgresql']['username'] %>"
+   Password "<%= node['collectd']['postgresql']['password'] %>"
+   Query database_connections
+   Query username_connections
+   Query backends
+   Query transactions
+   Query queries
+   Query query_plans
+   Query table_states
+   Query disk_io
+   Query disk_usage
+</Database>
+
+</Plugin>
