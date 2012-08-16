@@ -11,6 +11,16 @@ TypesDB "/etc/collectd/plugins/postgresql-types.db"
   </Result>
 </Query>
 
+<Query locks>
+  Statement "select count(*) as count, case when granted = true then 'granted' when granted = false then 'waiting' else 'unk' end from pg_locks group by granted"
+  <Result>
+  Type pg_lock_count
+  InstancesFrom "case"
+  ValuesFrom "count"
+  </Result>
+</Query>
+
+
 <Query username_connections>
   Statement "select count(usename) as count, usename from pg_stat_activity group by usename"
   <Result>
@@ -35,6 +45,7 @@ TypesDB "/etc/collectd/plugins/postgresql-types.db"
    Query table_states
    Query disk_io
    Query disk_usage
+   Query locks
 </Database>
 
 </Plugin>
