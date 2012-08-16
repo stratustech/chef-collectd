@@ -22,7 +22,7 @@ TypesDB "/etc/collectd/plugins/postgresql-types.db"
 
 
 <Database postgres>
-   Host "<%= node['collectd']['postgresql']['host'] %>"
+   Host "<%= node.name %>"
    Port "<%= node['collectd']['postgresql']['port'] %>"
    User "<%= node['collectd']['postgresql']['username'] %>"
    Password "<%= node['collectd']['postgresql']['password'] %>"
