@@ -1,3 +1,13 @@
+# Check if collectd was compiled w/ support for postgres
+# if, not fail loudly
+ruby_block "check pg support" do
+  block do
+    unless ::File.exists? "/opt/collectd/lib/collectd/postgresql.so"
+      Chef::Application.fatal!("collectd does not have postgresql support compiled in. Check that pg_config and other postgres binaries are in the PATH. If not, you need to reconfigure and recompile collectd.")
+    end
+  end
+end
+
 template "/etc/collectd/plugins/postgresql.conf" do
   source "postgresql.conf.erb"
   mode "0644"
