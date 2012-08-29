@@ -33,7 +33,9 @@ default[:collectd][:graphite][:port] = "2003"
 default[:collectd][:graphite][:prefix] = "collectd."
 default[:collectd][:graphite][:postfix] = ""
 default[:collectd][:graphite][:escape_character] = "_"
-default[:collectd][:graphite][:store_rates] = false
+default[:collectd][:graphite][:store_rates] = false  # Note, the graphite default is true
+default[:collectd][:graphite][:separate_instances] = false
+default[:collectd][:graphite][:always_append_ds] = false
 
 
 default['collectd']['postgresql']['host'] = "localhost"

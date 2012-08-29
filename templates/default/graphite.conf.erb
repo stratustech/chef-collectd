@@ -7,7 +7,8 @@ LoadPlugin write_graphite
    Prefix "<%= node[:collectd][:graphite][:prefix] %>"
    Postfix "<%= node[:collectd][:graphite][:postfix] %>"
    StoreRates <%= node[:collectd][:graphite][:store_rates] %>
-   AlwaysAppendDS false
+   SeparateInstances <%= node[:collectd][:graphite][:separate_instances] %>
+   AlwaysAppendDS <%= node[:collectd][:graphite][:always_append_ds] %>
    EscapeCharacter "<%= node[:collectd][:graphite][:escape_character] %>"
  </Carbon>
 </Plugin>
