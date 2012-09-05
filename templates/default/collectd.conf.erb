@@ -14,5 +14,7 @@ TypesDB "<%= @node[:collectd][:types_db].join('", "') %>"
 Interval <%= @node[:collectd][:interval] %>
 ReadThreads <%= @node[:collectd][:read_threads] %>
 
+LoadPlugin syslog
+
 Include "/etc/collectd/plugins/*.conf"
 Include "/etc/collectd/thresholds.conf"
