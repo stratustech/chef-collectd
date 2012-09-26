@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+include_recipe "build-essential"
 include_recipe "ark"
 
 node[:collectd][:base_dir] = "/opt/collectd/var/lib/collectd"
