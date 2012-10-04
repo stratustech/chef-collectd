@@ -33,31 +33,22 @@ package "collectd" do
 else
   include_recipe "collectd::source"
 end
-  
-directory "/etc/collectd" do
-  owner "root"
-  group "root"
-  mode "755"
+
+%w{/etc/collectd /etc/collectd/plugins}.each do |dir|
+  directory dir do
+    owner "root"
+    group "root"
+    mode "755"
+  end
 end
 
-directory "/etc/collectd/plugins" do
-  owner "root"
-  group "root"
-  mode "755"
-end
-
-directory node[:collectd][:base_dir] do
-  owner "root"
-  group "root"
-  mode "755"
-  recursive true
-end
-
-directory node[:collectd][:plugin_dir] do
-  owner "root"
-  group "root"
-  mode "755"
-  recursive true
+[node[:collectd][:base_dir], node[:collectd][:plugin_dir]].each do |rdir|
+  directory rdir do
+    owner "root"
+    group "root"
+    mode "755"
+    recursive true
+  end
 end
 
 %w(collectd collection thresholds).each do |file|

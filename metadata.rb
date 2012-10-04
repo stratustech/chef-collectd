@@ -9,3 +9,6 @@ version          "1.0.5"
   supports os
 end
 
+%w{ apache2 ark build-essential }.each do |dep|
+  depends dep
+end
