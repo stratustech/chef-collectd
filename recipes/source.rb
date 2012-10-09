@@ -24,10 +24,33 @@ node[:collectd][:base_dir] = "/opt/collectd/var/lib/collectd"
 node[:collectd][:plugin_dir] = "/opt/collectd/lib/collectd"
 node[:collectd][:types_db] = ["/opt/collectd/share/collectd/types.db"]
 
+# Note, if new packages are added to enable more plugins, existing
+# deployments will not rebuild collectd.  To force a rebuild:
+#   > rm -f /opt/collectd-5.1/{config.status,configure,sbin/collectd}
+
 if platform_family? "debian"
   package "perl-modules"
+
+  # "curl_json" plugin deps
+  %w(libyajl1 libyajl-dev).each do |pkg|
+    package pkg
+  end
+
+  # Another collectd "curl_json" plugin dep, but one that requires an
+  # `apt-get update` before installing
+  include_recipe "apt"
+  package "libcurl4-openssl-dev" do
+    action :install
+    notifies :run, "execute[apt-get-update]", :immediately
+  end
+
 elsif platform_family? "rhel" and node['platform_version'].to_i > 5
   package "perl-ExtUtils-MakeMaker"
+
+  # "curl_json" plugin deps
+  %w(libcurl yajl yajl-devel).each do |pkg|
+    package pkg
+  end
 end
 
 ark "collectd" do
