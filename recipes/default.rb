@@ -57,7 +57,7 @@ end
     owner "root"
     group "root"
     mode "644"
-    notifies :restart, resources(:service => "collectd")
+    notifies :restart, "service[collectd]"
   end
 end
 

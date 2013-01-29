@@ -2,5 +2,5 @@
 
 desc "Run foodcritic lint checking"
 task :foodcritic do
-  sh "bundle exec foodcritic -f correctness -t correctness ."
+  sh "bundle exec foodcritic -f correctness ."
 end

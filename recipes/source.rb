@@ -20,9 +20,9 @@
 include_recipe "build-essential"
 include_recipe "ark"
 
-node[:collectd][:base_dir] = "/opt/collectd/var/lib/collectd"
-node[:collectd][:plugin_dir] = "/opt/collectd/lib/collectd"
-node[:collectd][:types_db] = ["/opt/collectd/share/collectd/types.db"]
+node.set[:collectd][:base_dir] = "/opt/collectd/var/lib/collectd"
+node.set[:collectd][:plugin_dir] = "/opt/collectd/lib/collectd"
+node.set[:collectd][:types_db] = ["/opt/collectd/share/collectd/types.db"]
 
 # Note, if new packages are added to enable more plugins, existing
 # deployments will not rebuild collectd.  To force a rebuild:
@@ -72,7 +72,7 @@ if node['platform_version'].to_i < 6 and platform_family? "rhel"
     owner "root"
     group "root"
     mode "755"
-    notifies :restart, resources(:service => "collectd")
+    notifies :restart, "service[collectd]"
   end
 else
   template "/etc/init/collectd.conf" do
@@ -80,6 +80,6 @@ else
     owner "root"
     group "root"
     mode "755"
-    notifies :restart, resources(:service => "collectd")
+    notifies :restart, "service[collectd]"
   end
 end

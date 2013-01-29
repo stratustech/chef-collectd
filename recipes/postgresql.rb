@@ -11,7 +11,7 @@ end
 template "/etc/collectd/plugins/postgresql.conf" do
   source "postgresql.conf.erb"
   mode "0644"
-  notifies :restart, resources(:service => "collectd")
+  notifies :restart, "service[collectd]"
 end
 
 file "/etc/collectd/plugins/postgresql-types.db" do
